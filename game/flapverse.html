@@ -454,9 +454,6 @@ canvas{
     margin-top:18px !important;
     flex-shrink:0 !important;
 }
-#fv-dev-coins{
-    flex-shrink:0 !important;
-}
 </style>
 
 <style id="fv-native-fullscreen-style">#fv-native-fullscreen{position:fixed;right:14px;bottom:14px;z-index:999999;border:3px solid #472c20;border-radius:10px;background:#fff;color:#222;font:900 14px Arial,sans-serif;padding:9px 12px;cursor:pointer;box-shadow:0 4px 0 #472c20;opacity:.92}#fv-native-fullscreen:active{transform:translateY(3px);box-shadow:0 1px 0 #472c20}@media(max-width:700px){#fv-native-fullscreen{right:8px;bottom:8px;font-size:12px;padding:8px 10px}}</style>
@@ -1185,16 +1182,184 @@ body.fv-theme-doraemon #fv-theme-animation-layer:after{content:"🔔";position:a
 </style>
 
 
-<style id="fv-public-release-hide-dev-tools">
-[id*="dev-test" i],[id*="devtool" i],[id*="dev-tool" i],[id*="debug" i],[id*="cheat" i],
-[class*="dev-test" i],[class*="devtool" i],[class*="dev-tool" i],[class*="debug-panel" i],[class*="cheat-panel" i]{
- display:none!important;visibility:hidden!important;pointer-events:none!important
+<style id="fv-online-player-hub-css">
+#fv-player-hub-button{
+  order:-48!important;position:relative!important;
+  border:3px solid #9ef3ff!important;
+  background:linear-gradient(110deg,#102a68,#175fb5,#53228f)!important;
+  box-shadow:0 0 18px #59dfff66!important
 }
+#fv-player-hub-screen{
+ position:fixed;inset:0;z-index:12000;display:none;flex-direction:column;
+ color:#fff;font-family:Arial,sans-serif;
+ background:
+  radial-gradient(circle at 10% 0,rgba(61,179,255,.22),transparent 32%),
+  radial-gradient(circle at 100% 20%,rgba(170,68,255,.18),transparent 34%),
+  linear-gradient(180deg,#07101f,#07192c 60%,#040913);
+ overflow:hidden
+}
+#fv-player-hub-screen.on{display:flex}
+#fv-ph-head{
+ display:flex;align-items:center;gap:10px;padding:11px 14px;
+ background:#07101fe8;border-bottom:2px solid #62dfff;box-shadow:0 8px 25px #0006
+}
+#fv-ph-head h2{margin:0;flex:1;font-size:clamp(23px,5vw,38px);color:#a8f4ff;text-shadow:0 0 13px #4ed8ff66}
+#fv-ph-online{font-size:10px;font-weight:1000;border-radius:999px;padding:5px 8px;background:#57252b;color:#ffb7bd}
+#fv-ph-online.ok{background:#124b34;color:#88ffc1}
+#fv-ph-close{border:0;border-radius:10px;padding:8px 11px;background:#ff7167;color:white;font-weight:1000;cursor:pointer}
+#fv-ph-tabs{display:flex;gap:7px;overflow:auto;padding:9px;background:#0003}
+.fv-ph-tab{white-space:nowrap;border:1px solid #ffffff2f;border-radius:999px;background:#173b65;color:#fff;padding:8px 11px;font-weight:1000;cursor:pointer}
+.fv-ph-tab.on{background:#6fe8ff;color:#06213a;box-shadow:0 0 14px #6fe8ff77}
+#fv-ph-content{flex:1;overflow:auto;padding:13px}
+.fv-ph-panel{display:none;max-width:880px;margin:auto}.fv-ph-panel.on{display:block}
+.fv-ph-card{background:linear-gradient(145deg,#ffffff12,#ffffff08);border:1px solid #ffffff24;border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 8px 26px #0003}
+.fv-ph-title{font-size:20px;font-weight:1000;color:#a8f4ff;margin-bottom:10px}
+.fv-ph-input{width:100%;border:1px solid #ffffff35;border-radius:11px;padding:11px 12px;margin:6px 0;background:#020914aa;color:#fff;font-weight:800;outline:none}
+.fv-ph-btn{border:0;border-radius:11px;padding:10px 13px;margin:5px 3px;background:#6fe8ff;color:#06213a;font-weight:1000;cursor:pointer}
+.fv-ph-btn.gold{background:#ffd84a;color:#362300}.fv-ph-btn.red{background:#ff7369;color:#fff}.fv-ph-btn.green{background:#70ec91;color:#082f18}
+#fv-ph-account-status{font-size:12px;line-height:1.5;margin-top:8px;opacity:.9}
+.fv-profile-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fv-profile-avatar{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,#53ddff,#7a42ff);border:3px solid #d8fbff;box-shadow:0 0 22px #64e1ff66}
+.fv-profile-name{font-size:28px;font-weight:1000}.fv-profile-rank{color:#ffe36d;font-weight:1000;margin-top:5px}
+.fv-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px;margin-top:12px}
+.fv-stat{background:#0004;border:1px solid #ffffff1f;border-radius:13px;padding:11px;text-align:center}
+.fv-stat b{display:block;color:#78eaff;font-size:21px}.fv-stat small{font-weight:900;opacity:.7}
+.fv-gp-profile{background:linear-gradient(135deg,#6c4300,#ffd83d,#fff2a5,#805000);color:#2c1800;border:2px solid #fff0a0!important;font-weight:1000}
+.fv-friend-row,.fv-challenge-row,.fv-hof-row{
+ display:flex;gap:8px;align-items:center;padding:10px;margin:7px 0;border-radius:12px;background:#0004;border:1px solid #ffffff1c
+}
+.fv-friend-row .grow,.fv-challenge-row .grow,.fv-hof-row .grow{flex:1;min-width:0}
+.fv-mini{font-size:10px;opacity:.68}.fv-score{font-size:18px;font-weight:1000;color:#ffe36a}
+.fv-empty{text-align:center;padding:25px;opacity:.7;font-weight:900}
+#fv-friend-leaderboard .fv-friend-row:nth-child(1){border-color:#ffd83d;box-shadow:0 0 12px #ffd83d33}
+#fv-friend-leaderboard .fv-friend-row:nth-child(2){border-color:#d7e2f0}
+#fv-friend-leaderboard .fv-friend-row:nth-child(3){border-color:#c5804e}
+.fv-hof-medal{font-size:30px}.fv-hof-event{font-weight:1000;color:#ffd961}
+#fv-account-sync-time{font-size:10px;opacity:.65;margin-top:7px}
+@media(max-width:600px){
+ #fv-ph-content{padding:8px}.fv-ph-card{padding:11px;border-radius:14px}
+ .fv-ph-btn{padding:8px 9px;font-size:11px}
+ .fv-profile-name{font-size:22px}.fv-profile-avatar{width:67px;height:67px;font-size:36px}
+ .fv-stat-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+
+<style id="fv-normal-shop-retired">
+/* The original Shop has been fully merged into MEGA SHOP. */
+#shop-button,#shop-screen{display:none!important;visibility:hidden!important;pointer-events:none!important}
 </style>
 
 </head>
 
 <body>
+
+<div id="fv-player-hub-screen">
+ <div id="fv-ph-head">
+   <h2>👤 FLAPVERSE PLAYER HUB</h2>
+   <span id="fv-ph-online">OFFLINE</span>
+   <button id="fv-ph-close">✕ CLOSE</button>
+ </div>
+ <div id="fv-ph-tabs">
+   <button class="fv-ph-tab on" data-tab="account">🔐 ACCOUNT</button>
+   <button class="fv-ph-tab" data-tab="profile">📊 PROFILE</button>
+   <button class="fv-ph-tab" data-tab="friends">👥 FRIENDS</button>
+   <button class="fv-ph-tab" data-tab="hof">🏅 HALL OF FAME</button>
+ </div>
+ <div id="fv-ph-content">
+   <section id="fv-ph-account" class="fv-ph-panel on">
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">🔐 FLAPVERSE ACCOUNT</div>
+       <div id="fv-account-logged-out">
+         <div style="font-size:12px;opacity:.86;margin-bottom:8px">
+           <b>GUEST ID:</b> Username + FLAPVERSE Password only.<br>
+           <b>EMAIL ACCOUNT:</b> Add an Email ID if you want it bound to your account. Email is optional.
+         </div>
+         <input id="fv-account-user" class="fv-ph-input" maxlength="120" placeholder="Username ID / Email ID for login" autocomplete="username">
+         <input id="fv-account-email" class="fv-ph-input" type="email" maxlength="120" placeholder="Email ID (OPTIONAL when creating account)" autocomplete="email">
+         <input id="fv-account-pass" class="fv-ph-input" type="password" minlength="6" placeholder="Create / Enter FLAPVERSE Password" autocomplete="current-password">
+         <button id="fv-account-login" class="fv-ph-btn green">🔓 LOGIN</button>
+         <button id="fv-account-create" class="fv-ph-btn gold">✨ CREATE ACCOUNT</button>
+         <div class="fv-mini" style="margin-top:7px">
+           No Gmail is required. Guest IDs work with Username + Password. Email accounts can use Email + Password.
+         </div>
+       </div>
+       <div id="fv-account-logged-in" style="display:none">
+         <div style="font-size:13px">SIGNED IN AS</div>
+         <div id="fv-account-name" style="font-size:28px;font-weight:1000;color:#85edff;margin:5px 0"></div>
+         <button id="fv-account-sync" class="fv-ph-btn green">☁️ SYNC NOW</button>
+         <button id="fv-account-logout" class="fv-ph-btn red">🚪 LOG OUT</button>
+         <div id="fv-account-sync-time"></div>
+       </div>
+       <div id="fv-ph-account-status"></div>
+     </div>
+     <div class="fv-ph-card">
+       <b>☁️ CROSS-DEVICE SAVE</b>
+       <div style="font-size:11px;line-height:1.6;margin-top:7px;opacity:.82">
+       Coins • best score • achievements • Vault/Mega Shop items • characters • UI themes • bird skins • Golden Pass and equipped cosmetics are included in account sync.
+       </div>
+     </div>
+   </section>
+
+   <section id="fv-ph-profile" class="fv-ph-panel">
+     <div class="fv-ph-card">
+       <div class="fv-profile-top">
+         <div class="fv-profile-avatar">🐦</div>
+         <div>
+           <div id="fv-profile-name" class="fv-profile-name">PLAYER</div>
+           <div id="fv-profile-rank" class="fv-profile-rank">🌎 GLOBAL RANK: —</div>
+           <div id="fv-profile-title" class="fv-mini"></div>
+         </div>
+       </div>
+       <div id="fv-profile-golden"></div>
+       <div class="fv-stat-grid">
+         <div class="fv-stat"><b id="fv-stat-best">0</b><small>BEST SCORE</small></div>
+         <div class="fv-stat"><b id="fv-stat-pipes">0</b><small>TOTAL PIPES</small></div>
+         <div class="fv-stat"><b id="fv-stat-deaths">0</b><small>DEATHS</small></div>
+         <div class="fv-stat"><b id="fv-stat-earned">0</b><small>COINS EARNED</small></div>
+         <div class="fv-stat"><b id="fv-stat-ach">0/150</b><small>ACHIEVEMENTS</small></div>
+         <div class="fv-stat"><b id="fv-stat-world">—</b><small>FAVORITE WORLD</small></div>
+       </div>
+     </div>
+   </section>
+
+   <section id="fv-ph-friends" class="fv-ph-panel">
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">➕ ADD A FRIEND</div>
+       <div style="display:flex;gap:7px">
+         <input id="fv-friend-search" class="fv-ph-input" placeholder="Search exact FLAPVERSE username">
+         <button id="fv-friend-add" class="fv-ph-btn green">ADD</button>
+       </div>
+       <div id="fv-friend-search-result" class="fv-mini"></div>
+     </div>
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">📨 FRIEND REQUESTS</div>
+       <div id="fv-friend-requests"></div>
+     </div>
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">👥 MY FRIENDS</div>
+       <div id="fv-friends-list"></div>
+     </div>
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">🏆 FRIENDS LEADERBOARD</div>
+       <div id="fv-friend-leaderboard"></div>
+     </div>
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">⚔️ CHALLENGES</div>
+       <div id="fv-challenges-list"></div>
+     </div>
+   </section>
+
+   <section id="fv-ph-hof" class="fv-ph-panel">
+     <div class="fv-ph-card">
+       <div class="fv-ph-title">🏅 FLAPVERSE HALL OF FAME</div>
+       <div style="font-size:11px;opacity:.78;margin-bottom:10px">Global event champions are remembered here permanently.</div>
+       <div id="fv-hof-list"></div>
+     </div>
+   </section>
+ </div>
+</div>
+
 
 <div id="fv-vault-screen">
  <div id="fv-vault-head">
@@ -1341,8 +1506,6 @@ body.fv-theme-doraemon #fv-theme-animation-layer:after{content:"🔔";position:a
     <div style="font-size:13px;color:#fff;text-shadow:2px 2px #000;margin-bottom:8px;">
         🟨 Golden Pipes, 🌈 Neon Pipes, and World Effects change the game during gameplay.
     </div>
-    
-
 <button id="shop-back-button" class="menu-button">◀ BACK</button>
 </div>
 
@@ -1698,6 +1861,10 @@ deathHome.addEventListener("click", function(e){
 });
 
 function showDeathMenu(){
+    try{
+        localStorage.setItem("fvLifetimeDeaths",String((Number(localStorage.getItem("fvLifetimeDeaths"))||0)+1));
+        if(window.fvOnlinePlayer) setTimeout(()=>window.fvOnlinePlayer.syncNow(),50);
+    }catch(e){}
     deathScore.textContent="SCORE: "+score;
     deathBest.textContent="BEST: "+Math.max(highScore, score);
     deathOverlay.style.position="fixed";
@@ -4876,6 +5043,9 @@ function gameLoop(){
             :score;
 
             pipes[i].passed=true;
+            try{
+                localStorage.setItem("fvLifetimePipes",String((Number(localStorage.getItem("fvLifetimePipes"))||0)+1));
+            }catch(e){}
 
             // COIN REWARD: every successfully passed pipe = +1 coin.
             if(window.flapverseEarnCoins){
@@ -6012,13 +6182,6 @@ font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 #12091f;">
   });
 
 
-  const devCoinBtn=if(devCoinBtn){
-    devCoinBtn.addEventListener("click",function(){
-      if(window.flapverseEarnCoins){
-        window.flapverseEarnCoins(1000,"DEV TEST");
-      }
-    });
-  }
 
   // Daily bonus.
   const today=new Date().toISOString().slice(0,10);
@@ -6308,35 +6471,6 @@ font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 #12091f;">
       });
     };
   }
-  // DEV TEST: unlock every achievement and grant its normal rewards.
-  const dev=if(dev){
-    dev.addEventListener('click',function(){
-      const unlock=window.flapverseUnlockAchievement;
-      if(typeof unlock==='function') cards.forEach(c=>unlock(c.dataset.ach));
-      cards.forEach((c,i)=>{
-        const id=c.dataset.ach;
-        if(!rewarded[id]){
-          const legendary=id==='a150';
-          const reward=legendary?5000:(i>=120?500:(i>=60?200:50));
-          rewarded[id]=1;
-          if(window.flapverseEarnCoins) window.flapverseEarnCoins(reward,legendary?'🏆 LEGENDARY DEV TEST':'DEV ACHIEVEMENT REWARD');
-          if(legendary){
-            localStorage.setItem('flapverse_legendary_eagle_unlocked','1');
-            localStorage.setItem('equippedCharacter','legendary');
-            equippedCharacter='legendary';
-          }
-        }
-      });
-      save();
-      if(typeof window.updateCharacterButtons==='function') window.updateCharacterButtons();
-      const lb=document.getElementById('equip-legendary');
-      if(lb){lb.innerText='🦅 EQUIPPED';lb.classList.add('equipped')}
-      const pr=document.getElementById('achievement-progress');
-      if(pr) pr.textContent='150 / 150 UNLOCKED';
-      alert('🧪 DEV TEST COMPLETE!\n\n🏆 All 150 achievements unlocked!\n🪙 Achievement rewards granted!\n🦅 Legendary Eagle unlocked!');
-    });
-  }
-
   // Achievement-earned Legendary Eagle: selecting it replaces any other equipped bird.
   const btn=document.getElementById('equip-legendary');
   if(btn){
@@ -7266,6 +7400,9 @@ window.flapverseRefreshAnimatedTheme=refresh;
 <script id="mega-shop-v2-js">
 (function(){
 const C={
+trails:['🌈 Trails',['Rainbow Trail|🌈|50|COMMON','Fire Trail|🔥|100|COMMON','Ice Trail|❄️|150|COMMON','Golden Trail|✨|200|COMMON','Crystal Trail|💎|250|RARE','Lightning Trail|⚡|350|RARE','Galaxy Trail|🌌|400|RARE','Meteor Trail|☄️|500|EPIC','Tornado Trail|🌪️|600|EPIC']],
+classicpipes:['🟩 Classic Pipe Skins',['Golden Pipes|🟨|200|COMMON','Neon Classic Pipes|🌈|300|RARE','Purple Pipes|🟣|350|RARE','Ice Classic Pipes|🔵|400|RARE','Lava Classic Pipes|🔥|450|EPIC','Rainbow Pipes|🌈|550|EPIC']],
+worldfx:['🌦️ World Effects',['Rain Effect|🌧️|200|COMMON','Rainbow Sky|🌈|300|RARE','Aurora Effect|🌌|350|RARE','Meteor Shower|☄️|500|EPIC','Lightning Storm|⚡|600|EPIC','Fog|🌫️|250|COMMON','Wind Storm|🌪️|450|EPIC','Eclipse|🌙|550|EPIC','Shooting Stars|🌠|400|RARE','Snowstorm|🌨️|350|RARE']],
 eggs:['🥚 Mystery Eggs',['Common Egg|🥚|500|COMMON','Rare Egg|🔵|1500|RARE','Epic Egg|🟣|5000|EPIC','Legendary Egg|🟡|15000|LEGENDARY']],
 accessories:['👑 Accessories',['Royal Crown|👑|7500|EPIC','Sunglasses|😎|2500|RARE','Headphones|🎧|4000|RARE','Helmet|🪖|5500|EPIC','Pirate Hat|🏴‍☠️|6500|EPIC','Wizard Hat|🧙|8000|EPIC','Halo|😇|12000|LEGENDARY']],
 death:['💥 Death Effects',['Explosion|💥|3000|RARE','Lightning Burst|⚡|5000|EPIC','Ice Shatter|🧊|5000|EPIC','Black Hole Collapse|🕳️|10000|LEGENDARY','Pixel Glitch|👾|6500|EPIC','Golden Blast|🌟|15000|LEGENDARY']],
@@ -7284,11 +7421,64 @@ prestige:['💎 Prestige',['Void Crown|👑|1000000|LEGENDARY','Cosmic Wings|�
 
 let cat='eggs';
 const OWN='fvMegaOwned',EQ='fvMegaEquipped';
+const LEGACY={
+ trails:{
+  'Rainbow Trail':'rainbow','Fire Trail':'fire','Ice Trail':'ice','Golden Trail':'gold','Crystal Trail':'crystal',
+  'Lightning Trail':'lightningTrail','Galaxy Trail':'galaxyTrail','Meteor Trail':'meteorTrail','Tornado Trail':'tornadoTrail'
+ },
+ classicpipes:{
+  'Golden Pipes':'goldPipes','Neon Classic Pipes':'neonPipes','Purple Pipes':'purplePipes',
+  'Ice Classic Pipes':'icePipes','Lava Classic Pipes':'lavaPipes','Rainbow Pipes':'rainbowPipes'
+ },
+ worldfx:{
+  'Rain Effect':'rain','Rainbow Sky':'rainbowSky','Aurora Effect':'aurora','Meteor Shower':'meteors',
+  'Lightning Storm':'lightning','Fog':'fog','Wind Storm':'wind','Eclipse':'eclipse',
+  'Shooting Stars':'shootingStars','Snowstorm':'snow'
+ }
+};
+const LEGACY_REVERSE=(()=>{
+ const out={};
+ Object.entries(LEGACY).forEach(([cat,items])=>Object.entries(items).forEach(([name,code])=>out[code]=[cat,name]));
+ return out;
+})();
 const parse=s=>{let a=s.split('|');return{name:a[0],icon:a[1],price:+a[2],rare:a[3]}};
 const owned=()=>{try{return JSON.parse(localStorage.getItem(OWN)||'[]')}catch(e){return[]}};
 const equips=()=>{try{return JSON.parse(localStorage.getItem(EQ)||'{}')}catch(e){return{}}};
 const saveOwned=a=>localStorage.setItem(OWN,JSON.stringify([...new Set(a)]));
 const saveEq=e=>localStorage.setItem(EQ,JSON.stringify(e));
+
+function migrateOldShop(){
+ let old=[];
+ try{old=JSON.parse(localStorage.getItem('flapverse_shop_owned_v1')||'[]')}catch(e){old=[]}
+ if(!Array.isArray(old))old=[];
+ let O=owned(),changed=false;
+ old.forEach(code=>{
+   const p=LEGACY_REVERSE[code];
+   if(p){
+     const id=p[0]+'::'+p[1];
+     if(!O.includes(id)){O.push(id);changed=true}
+   }
+ });
+ if(changed)saveOwned(O);
+
+ // Also import currently equipped old Shop cosmetics into Mega Shop equipped slots.
+ let E=equips(),eqChanged=false;
+ const tr=localStorage.getItem('flapverse_equipped_trail');
+ const pp=localStorage.getItem('flapverse_equipped_pipe');
+ const fx=localStorage.getItem('flapverse_equipped_world_effect');
+ if(tr&&LEGACY_REVERSE[tr]&&LEGACY_REVERSE[tr][0]==='trails'&&!E.trails){E.trails=LEGACY_REVERSE[tr][1];eqChanged=true}
+ if(pp&&LEGACY_REVERSE[pp]&&LEGACY_REVERSE[pp][0]==='classicpipes'&&!E.classicpipes){E.classicpipes=LEGACY_REVERSE[pp][1];eqChanged=true}
+ if(fx&&LEGACY_REVERSE[fx]&&LEGACY_REVERSE[fx][0]==='worldfx'&&!E.worldfx){E.worldfx=LEGACY_REVERSE[fx][1];eqChanged=true}
+ if(eqChanged)saveEq(E);
+}
+function mirrorLegacyOwned(category,name){
+ const code=LEGACY[category]&&LEGACY[category][name];
+ if(!code)return;
+ let old=[];
+ try{old=JSON.parse(localStorage.getItem('flapverse_shop_owned_v1')||'[]')}catch(e){old=[]}
+ if(!Array.isArray(old))old=[];
+ if(!old.includes(code)){old.push(code);localStorage.setItem('flapverse_shop_owned_v1',JSON.stringify(old))}
+}
 
 function coinInfo(){
   const preferred='coins';
@@ -7403,6 +7593,17 @@ function apply(){
   for(const [k,v] of Object.entries(e)){
     document.body.dataset['mega'+k]=v||'';
   }
+
+  // Old Shop gameplay systems now receive their equipped state from MEGA SHOP.
+  if(e.trails && LEGACY.trails[e.trails])localStorage.setItem('flapverse_equipped_trail',LEGACY.trails[e.trails]);
+  else if(Object.prototype.hasOwnProperty.call(e,'trails'))localStorage.removeItem('flapverse_equipped_trail');
+
+  if(e.classicpipes && LEGACY.classicpipes[e.classicpipes])localStorage.setItem('flapverse_equipped_pipe',LEGACY.classicpipes[e.classicpipes]);
+  else if(Object.prototype.hasOwnProperty.call(e,'classicpipes'))localStorage.removeItem('flapverse_equipped_pipe');
+
+  if(e.worldfx && LEGACY.worldfx[e.worldfx])localStorage.setItem('flapverse_equipped_world_effect',LEGACY.worldfx[e.worldfx]);
+  else if(Object.prototype.hasOwnProperty.call(e,'worldfx'))localStorage.removeItem('flapverse_equipped_world_effect');
+
   localStorage.setItem('fvEquippedPlayerTitle',e.titles||'');
   localStorage.setItem('fvEquippedProfileFrame',e.frames||'');
 
@@ -7476,6 +7677,7 @@ function render(){
         if(cv<x.price){toast('❌ NOT ENOUGH COINS','error');return}
         setSharedCoins(cv-x.price);
         O.push(id);saveOwned(O);
+        mirrorLegacyOwned(cat,x.name);
         toast('−🪙 '+x.price.toLocaleString()+' • '+x.name+' UNLOCKED','success');
       }
 
@@ -7493,7 +7695,7 @@ function render(){
 
 function init(){
   let s=document.createElement('div');s.id='megaShop';
-  s.innerHTML='<div class=mHead><h2>🛒 FLAPVERSE MEGA SHOP</h2><div class=mCoins>🪙 0</div><button id=mClose>✕</button></div><div class=mTabs></div><div class=mGrid></div>';
+  s.innerHTML='<div class=mHead><h2>💎 FLAPVERSE MEGA SHOP • ALL ITEMS</h2><div class=mCoins>🪙 0</div><button id=mClose>✕</button></div><div class=mTabs></div><div class=mGrid></div>';
   document.body.appendChild(s);
   let t=document.createElement('div');t.id='mToast';document.body.appendChild(t);
 
@@ -7514,6 +7716,7 @@ function init(){
   document.getElementById('fvEgg').onclick=tapEgg;
   document.getElementById('fvEggDone').onclick=closeEgg;
 
+  migrateOldShop();
   apply();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
@@ -7929,7 +8132,13 @@ const ICON={
  'Confetti':'🎊','Fireworks':'🎆','Golden Rain':'🌟','Lightning':'⚡','Portal Explosion':'🌀',
  'Solar Crown':'☀️','Glitch Wings':'🪽','Meteor Aura':'☄️',
  'Void Crown':'👑','Cosmic Wings':'🌌','Developer Aura':'⚡',
- 'FLAPVERSE SUPREME CROWN':'👑'
+ 'FLAPVERSE SUPREME CROWN':'👑',
+ 'Rainbow Trail':'🌈','Fire Trail':'🔥','Ice Trail':'❄️','Golden Trail':'✨','Crystal Trail':'💎',
+ 'Lightning Trail':'⚡','Galaxy Trail':'🌌','Meteor Trail':'☄️','Tornado Trail':'🌪️',
+ 'Golden Pipes':'🟨','Neon Classic Pipes':'🌈','Purple Pipes':'🟣','Ice Classic Pipes':'🔵',
+ 'Lava Classic Pipes':'🔥','Rainbow Pipes':'🌈',
+ 'Rain Effect':'🌧️','Rainbow Sky':'🌈','Aurora Effect':'🌌','Meteor Shower':'☄️','Lightning Storm':'⚡',
+ 'Fog':'🌫️','Wind Storm':'🌪️','Eclipse':'🌙','Shooting Stars':'🌠','Snowstorm':'🌨️'
 };
 let filter='all';
 
@@ -7957,8 +8166,8 @@ function normalize(category,name){
 function group(category,name){
  const n=normalize(category,name)[0];
  if(['accessories','wings','auras','prestige','limited'].includes(category)||['accessories','wings','auras'].includes(n))return 'wear';
- if(['death','victory'].includes(n))return 'effects';
- if(['pipes','coinskins','backgrounds'].includes(n))return 'game';
+ if(['death','victory','worldfx'].includes(n))return 'effects';
+ if(['pipes','coinskins','backgrounds','trails','classicpipes'].includes(n))return 'game';
  if(['frames','titles'].includes(n))return 'profile';
  return 'other';
 }
@@ -8020,7 +8229,9 @@ function labelFor(item){
  const names={
    accessories:'ACCESSORY',wings:'WING EFFECT',auras:'AURA',death:'DEATH EFFECT',
    pipes:'PIPE SKIN',coinskins:'COIN SKIN',frames:'PROFILE FRAME',titles:'PLAYER TITLE',
-   backgrounds:'MENU BACKGROUND',victory:'VICTORY EFFECT',goldenpass:'GOLDEN PASS REWARD'
+   backgrounds:'MENU BACKGROUND',victory:'VICTORY EFFECT',
+   trails:'TRAIL',classicpipes:'CLASSIC PIPE SKIN',worldfx:'WORLD EFFECT',
+   goldenpass:'GOLDEN PASS REWARD'
  };
  return names[slot]||names[item.category]||item.category.toUpperCase();
 }
@@ -8081,24 +8292,530 @@ window.fvVault={open,render,equip,unequip};
 </script>
 
 
-<script id="fv-public-release-dev-cleaner">
+<script id="fv-online-player-system">
 (function(){
- const BAD=/\b(dev\s*test|developer\s*test|debug|cheat|unlock\s*all(?:\s*achievements)?|grant\s*all|\+?1,?000\s*coins|add\s*1,?000\s*coins|free\s*coins|test\s*coins)\b/i;
- function clean(root){
-   (root||document).querySelectorAll('button,a,[role="button"]').forEach(el=>{
-     const text=(el.textContent||'').trim();
-     const id=(el.id||'')+' '+(el.className||'');
-     if(/Developer Aura/i.test(text))return;
-     if(BAD.test(text)||/\b(dev-test|dev-tool|devtool|debug|cheat)\b/i.test(id)){
-       el.remove();
-     }
-   });
+'use strict';
+
+const SB='https://ywmorzduhnvayxjxyrgz.supabase.co';
+const ANON='sb_publishable_fSYg6WH26kyHjSRQ-KLVsw_plVH9yf4';
+const SESSION='fvAccountSessionV1';
+const STATE_KEYS=[
+ 'coins','flapverse_coins_v2','fvCoins','flappyHighScore','flapverse_achievements_safe_v1',
+ 'flapverse_shop_owned_v1','flapverse_bird_skins_owned_v1','fvOwnedCharactersCoinsUpdate',
+ 'fvOwnedUIThemes','fvUITheme','fvMegaOwned','fvMegaEquipped','fvGoldenPassV1',
+ 'fvGoldenChampionAccessory','fvFlapverseSupremeCrown','equippedCharacter',
+ 'flapverse_equipped_pipe','flapverse_equipped_trail','flapverse_equipped_world_effect',
+ 'fvEquippedPlayerTitle','fvEquippedProfileFrame',
+ 'flapverse_legendary_eagle_unlocked','fvLegendaryEagleUnlocked','fv_legendary_eagle_unlocked',
+ 'legendaryBirdUnlocked','legendaryEagleUnlocked','flappySelectedWorld','flapverse_world'
+];
+let sess=null, syncing=false, tab='account', friendsCache=[];
+
+const $=id=>document.getElementById(id);
+function status(msg,bad){
+ const e=$('fv-ph-account-status');if(e){e.textContent=msg||'';e.style.color=bad?'#ff9ca5':'#9dffc2'}
+}
+function norm(s){return String(s||'').trim().toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,20)}
+function cleanEmail(s){return String(s||'').trim().toLowerCase().slice(0,120)}
+function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail(s))}
+function guestEmail(u){return 'guest_'+norm(u)+'@players.flapverse.local'}
+function authHeaders(token,extra){
+ return Object.assign({'apikey':ANON,'Authorization':'Bearer '+(token||ANON),'Content-Type':'application/json'},extra||{})
+}
+function saveSession(s){sess=s||null;if(sess)localStorage.setItem(SESSION,JSON.stringify(sess));else localStorage.removeItem(SESSION);refreshAccountUI()}
+function loadSession(){try{sess=JSON.parse(localStorage.getItem(SESSION)||'null')}catch(e){sess=null}}
+function uid(){return sess&&sess.user&&sess.user.id||''}
+function username(){return sess&&sess.username||localStorage.getItem('flapverse_player_name_v1')||'PLAYER'}
+function fmt(n){return Math.max(0,Number(n)||0).toLocaleString()}
+function achievementCount(){try{return Object.keys(JSON.parse(localStorage.getItem('flapverse_achievements_safe_v1')||'{}')).length}catch(e){return 0}}
+function worldCounts(){try{return JSON.parse(localStorage.getItem('fvWorldPlayCounts')||'{}')}catch(e){return{}}}
+function favoriteWorld(){
+ const o=worldCounts(),a=Object.entries(o).sort((x,y)=>Number(y[1])-Number(x[1]));
+ return a.length?a[0][0]:(localStorage.getItem('flappySelectedWorld')||localStorage.getItem('flapverse_world')||'—');
+}
+function currentStats(){
+ return {
+   total_pipes:Number(localStorage.getItem('fvLifetimePipes')||0),
+   deaths:Number(localStorage.getItem('fvLifetimeDeaths')||0),
+   coins_earned:Number(localStorage.getItem('fvLifetimeCoinsEarned')||0),
+   favorite_world:favoriteWorld(),
+   best_score:Number(localStorage.getItem('flappyHighScore')||0),
+   achievement_count:achievementCount()
+ };
+}
+function captureState(){
+ const out={};
+ STATE_KEYS.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)out[k]=v});
+ out.fvLifetimePipes=localStorage.getItem('fvLifetimePipes')||'0';
+ out.fvLifetimeDeaths=localStorage.getItem('fvLifetimeDeaths')||'0';
+ out.fvLifetimeCoinsEarned=localStorage.getItem('fvLifetimeCoinsEarned')||'0';
+ out.fvWorldPlayCounts=localStorage.getItem('fvWorldPlayCounts')||'{}';
+ return out;
+}
+function arr(v){try{const a=JSON.parse(v||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+function obj(v){try{const a=JSON.parse(v||'{}');return a&&typeof a==='object'?a:{}}catch(e){return{}}}
+function mergeState(remote){
+ if(!remote||typeof remote!=='object')return;
+ const unionKeys=['flapverse_shop_owned_v1','flapverse_bird_skins_owned_v1','fvOwnedCharactersCoinsUpdate','fvOwnedUIThemes','fvMegaOwned'];
+ unionKeys.forEach(k=>{
+   if(remote[k]!==undefined){
+     const merged=[...new Set(arr(localStorage.getItem(k)).concat(arr(remote[k])))];
+     localStorage.setItem(k,JSON.stringify(merged));
+   }
+ });
+ if(remote.flapverse_achievements_safe_v1!==undefined){
+   localStorage.setItem('flapverse_achievements_safe_v1',JSON.stringify(Object.assign({},obj(remote.flapverse_achievements_safe_v1),obj(localStorage.getItem('flapverse_achievements_safe_v1')))));
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>clean(document));
- else clean(document);
- new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
-   if(n.nodeType===1)clean(n);
- }))).observe(document.documentElement,{childList:true,subtree:true});
+ ['flappyHighScore','fvLifetimePipes','fvLifetimeDeaths','fvLifetimeCoinsEarned'].forEach(k=>{
+   if(remote[k]!==undefined)localStorage.setItem(k,String(Math.max(Number(localStorage.getItem(k)||0),Number(remote[k]||0))));
+ });
+ ['coins','flapverse_coins_v2','fvCoins'].forEach(k=>{
+   if(remote[k]!==undefined)localStorage.setItem(k,String(Math.max(Number(localStorage.getItem(k)||0),Number(remote[k]||0))));
+ });
+ if(remote.fvWorldPlayCounts!==undefined){
+   const A=obj(remote.fvWorldPlayCounts),B=obj(localStorage.getItem('fvWorldPlayCounts'));
+   Object.keys(A).forEach(k=>B[k]=Math.max(Number(B[k]||0),Number(A[k]||0)));
+   localStorage.setItem('fvWorldPlayCounts',JSON.stringify(B));
+ }
+ STATE_KEYS.filter(k=>!unionKeys.includes(k)&&!['flapverse_achievements_safe_v1','flappyHighScore','coins','flapverse_coins_v2','fvCoins'].includes(k))
+ .forEach(k=>{
+   if(remote[k]!==undefined && localStorage.getItem(k)===null)localStorage.setItem(k,String(remote[k]));
+ });
+ if(remote.fvGoldenPassV1==='1')localStorage.setItem('fvGoldenPassV1','1');
+}
+
+async function authFetch(path,opt){
+ opt=opt||{};opt.headers=authHeaders(sess&&sess.access_token,opt.headers);
+ let r=await fetch(SB+path,opt);
+ if(r.status===401 && sess&&sess.refresh_token){
+   const ok=await refreshToken();
+   if(ok){opt.headers=authHeaders(sess.access_token,opt.headers);r=await fetch(SB+path,opt)}
+ }
+ return r;
+}
+async function refreshToken(){
+ if(!sess||!sess.refresh_token)return false;
+ try{
+   const r=await fetch(SB+'/auth/v1/token?grant_type=refresh_token',{
+     method:'POST',headers:authHeaders(null),body:JSON.stringify({refresh_token:sess.refresh_token})
+   });
+   if(!r.ok)return false;
+   const d=await r.json();
+   sess.access_token=d.access_token;sess.refresh_token=d.refresh_token||sess.refresh_token;sess.user=d.user||sess.user;
+   saveSession(sess);return true;
+ }catch(e){return false}
+}
+async function verifySession(){
+ if(!sess||!sess.access_token)return false;
+ try{
+   const r=await fetch(SB+'/auth/v1/user',{headers:authHeaders(sess.access_token)});
+   if(r.ok){const u=await r.json();sess.user=u;saveSession(sess);return true}
+   return await refreshToken();
+ }catch(e){return false}
+}
+async function ensureProfile(){
+ if(!uid()||!sess.username)return false;
+ const body={id:uid(),username:sess.username};
+ const r=await authFetch('/rest/v1/fv_profiles?on_conflict=id',{
+   method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(body)
+ });
+ return r.ok;
+}
+async function loadUsernameForSession(){
+ if(!uid())return '';
+ const r=await authFetch('/rest/v1/fv_profiles?select=username&id=eq.'+encodeURIComponent(uid())+'&limit=1');
+ if(!r.ok)return '';
+ const rows=await r.json();
+ const u=rows&&rows[0]&&rows[0].username ? norm(rows[0].username) : '';
+ if(u){sess.username=u;saveSession(sess)}
+ return u;
+}
+async function pullState(){
+ if(!uid())return false;
+ const r=await authFetch('/rest/v1/fv_player_state?select=state,total_pipes,deaths,coins_earned,favorite_world,best_score,achievement_count&user_id=eq.'+encodeURIComponent(uid())+'&limit=1');
+ if(!r.ok)throw new Error('PLAYER DATABASE NOT SET UP');
+ const rows=await r.json();
+ if(rows&&rows[0]){
+   mergeState(rows[0].state||{});
+   const s=rows[0];
+   if(s.total_pipes!=null)localStorage.setItem('fvLifetimePipes',String(Math.max(Number(localStorage.getItem('fvLifetimePipes')||0),Number(s.total_pipes||0))));
+   if(s.deaths!=null)localStorage.setItem('fvLifetimeDeaths',String(Math.max(Number(localStorage.getItem('fvLifetimeDeaths')||0),Number(s.deaths||0))));
+   if(s.coins_earned!=null)localStorage.setItem('fvLifetimeCoinsEarned',String(Math.max(Number(localStorage.getItem('fvLifetimeCoinsEarned')||0),Number(s.coins_earned||0))));
+ }
+ return true;
+}
+async function pushState(){
+ if(!uid()||syncing)return false;
+ syncing=true;
+ try{
+   const st=currentStats();
+   const body=Object.assign({user_id:uid(),state:captureState(),updated_at:new Date().toISOString()},st);
+   const r=await authFetch('/rest/v1/fv_player_state?on_conflict=user_id',{
+     method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(body)
+   });
+   if(!r.ok)throw new Error('PLAYER DATABASE NOT SET UP');
+   const tm=$('fv-account-sync-time');if(tm)tm.textContent='LAST SYNC: '+new Date().toLocaleTimeString();
+   return true;
+ }finally{syncing=false}
+}
+async function syncNow(){
+ if(!uid())return false;
+ try{
+   await ensureProfile();
+   await pushState();
+   localStorage.setItem('flapverse_player_name_v1',sess.username);
+   localStorage.setItem('flapverse_player_id_v1',uid());
+   if(window.flapverseLeaderboard&&window.flapverseLeaderboard.sync)await window.flapverseLeaderboard.sync();
+   status('☁️ PROGRESS SYNCED TO YOUR FLAPVERSE ACCOUNT');
+   refreshProfile();
+   return true;
+ }catch(e){status('⚠️ '+(e.message||'SYNC FAILED'),true);return false}
+}
+async function login(create){
+ const identity=String($('fv-account-user').value||'').trim();
+ const createUser=norm(identity);
+ const optionalEmail=cleanEmail($('fv-account-email').value);
+ const p=$('fv-account-pass').value;
+
+ if(String(p).length<6){status('FLAPVERSE PASSWORD MUST BE AT LEAST 6 CHARACTERS',true);return}
+
+ if(create){
+   if(createUser.length<3){status('USERNAME ID MUST BE 3–20 LETTERS / NUMBERS / _',true);return}
+   if(optionalEmail && !validEmail(optionalEmail)){status('EMAIL ID IS OPTIONAL — BUT IF USED, ENTER A VALID EMAIL',true);return}
+ }else{
+   if(!identity){status('ENTER YOUR USERNAME ID OR EMAIL ID',true);return}
+ }
+
+ status(create?'CREATING FLAPVERSE ACCOUNT…':'LOGGING IN…');
+
+ try{
+   const path=create?'/auth/v1/signup':'/auth/v1/token?grant_type=password';
+
+   let authEmail='';
+   let accountType='guest';
+
+   if(create){
+     authEmail=optionalEmail || guestEmail(createUser);
+     accountType=optionalEmail?'email':'guest';
+   }else{
+     // Email login if player types an email. Otherwise treat it as a Guest Username ID.
+     authEmail=identity.includes('@') ? cleanEmail(identity) : guestEmail(identity);
+     accountType=identity.includes('@')?'email':'guest';
+   }
+
+   const body={email:authEmail,password:p};
+   if(create)body.data={username:createUser,account_type:accountType};
+
+   const r=await fetch(SB+path,{method:'POST',headers:authHeaders(null),body:JSON.stringify(body)});
+   const d=await r.json().catch(()=>({}));
+   if(!r.ok)throw new Error(d.msg||d.error_description||d.message||'LOGIN FAILED');
+
+   if(create && !d.access_token){
+     // Guest accounts cannot receive verification email, so public release requires Confirm Email OFF.
+     if(accountType==='guest'){
+       throw new Error('GUEST IDS REQUIRE SUPABASE "CONFIRM EMAIL" TO BE OFF');
+     }
+     throw new Error('EMAIL ACCOUNT CREATED BUT EMAIL CONFIRMATION IS REQUIRED. FOR OPTIONAL EMAIL MODE, TURN "CONFIRM EMAIL" OFF.');
+   }
+   if(!d.access_token)throw new Error('LOGIN FAILED — CHECK YOUR ID AND FLAPVERSE PASSWORD');
+
+   saveSession({
+     access_token:d.access_token,
+     refresh_token:d.refresh_token,
+     user:d.user,
+     username:create?createUser:'',
+     email:accountType==='email'?authEmail:'',
+     account_type:accountType
+   });
+
+   if(create){
+     const prof=await ensureProfile();
+     if(!prof)throw new Error('RUN THE INCLUDED FLAPVERSE_SUPABASE_ONLINE_SETUP.SQL FIRST');
+   }else{
+     const loaded=await loadUsernameForSession();
+     if(!loaded)throw new Error('THIS ACCOUNT HAS NO FLAPVERSE USERNAME PROFILE');
+   }
+
+   localStorage.setItem('flapverse_player_name_v1',sess.username);
+   localStorage.setItem('flapverse_player_id_v1',d.user.id);
+
+   await pullState();
+   await syncNow();
+
+   if(create){
+     status(accountType==='guest'
+       ?'🎮 GUEST ID CREATED! LOGIN ANYWHERE WITH USERNAME + FLAPVERSE PASSWORD.'
+       :'📧 EMAIL ACCOUNT CREATED! EMAIL IS BOUND, BUT VERIFICATION IS NOT REQUIRED.');
+   }else{
+     status('✅ LOGIN SUCCESSFUL — '+sess.username.toUpperCase()+' LOADED.');
+   }
+   refreshAll();
+ }catch(e){status('❌ '+(e.message||'ACCOUNT ERROR'),true)}
+}
+function logout(){
+ pushState().finally(()=>{
+   saveSession(null);status('LOGGED OUT. YOUR LOCAL GAME IS STILL SAVED ON THIS DEVICE.');refreshAll();
+ });
+}
+function refreshAccountUI(){
+ const on=!!uid();
+ $('fv-account-logged-out').style.display=on?'none':'block';
+ $('fv-account-logged-in').style.display=on?'block':'none';
+ $('fv-account-name').textContent=on?(sess.username||'PLAYER'):'';
+ const b=$('fv-ph-online');b.textContent=on?'ONLINE':'OFFLINE';b.classList.toggle('ok',on);
+}
+
+async function globalRows(){
+ const r=await fetch(SB+'/rest/v1/flapverse_leaderboard?select=player_id,username,best_score,world,updated_at&order=best_score.desc&limit=100',{headers:authHeaders(null)});
+ if(!r.ok)return[];return await r.json();
+}
+async function refreshProfile(){
+ const n=username().toUpperCase(),st=currentStats();
+ $('fv-profile-name').textContent=n;
+ $('fv-stat-best').textContent=fmt(st.best_score);
+ $('fv-stat-pipes').textContent=fmt(st.total_pipes);
+ $('fv-stat-deaths').textContent=fmt(st.deaths);
+ $('fv-stat-earned').textContent=fmt(st.coins_earned);
+ $('fv-stat-ach').textContent=st.achievement_count+'/150';
+ $('fv-stat-world').textContent=String(st.favorite_world||'—').toUpperCase();
+ $('fv-profile-title').textContent=localStorage.getItem('fvEquippedPlayerTitle')||'FLAPVERSE PLAYER';
+ $('fv-profile-golden').innerHTML=localStorage.getItem('fvGoldenPassV1')==='1'
+  ?'<div class="fv-ph-card fv-gp-profile" style="margin:12px 0 0">👑 GOLDEN PASS HOLDER • FLAPVERSE SUPREME CROWN</div>':'';
+ $('fv-profile-rank').textContent='🌎 GLOBAL RANK: CHECKING…';
+ try{
+   const rows=await globalRows(),id=localStorage.getItem('flapverse_player_id_v1'),i=rows.findIndex(x=>x.player_id===id);
+   $('fv-profile-rank').textContent=i>=0?'🌎 GLOBAL RANK: #'+(i+1):'🌎 GLOBAL RANK: UNRANKED';
+ }catch(e){$('fv-profile-rank').textContent='🌎 GLOBAL RANK: OFFLINE'}
+}
+
+async function api(path,opt){
+ if(!uid())throw new Error('LOGIN REQUIRED');
+ const r=await authFetch('/rest/v1/'+path,opt||{});
+ if(!r.ok){
+   const t=await r.text().catch(()=>'');
+   throw new Error(r.status===404?'RUN THE INCLUDED SUPABASE ONLINE SETUP SQL':(t||'ONLINE ERROR'));
+ }
+ return r;
+}
+async function profiles(ids){
+ if(!ids.length)return[];
+ const q=ids.map(x=>'"'+x+'"').join(',');
+ const r=await api('fv_profiles?select=id,username&id=in.('+encodeURIComponent(q)+')');
+ return await r.json();
+}
+async function states(ids){
+ if(!ids.length)return[];
+ const q=ids.map(x=>'"'+x+'"').join(',');
+ const r=await api('fv_player_state?select=user_id,best_score,favorite_world,achievement_count&user_id=in.('+encodeURIComponent(q)+')');
+ return await r.json();
+}
+async function addFriend(){
+ if(!uid()){alert('LOGIN TO USE FRIENDS');return}
+ const q=norm($('fv-friend-search').value);
+ if(q.length<3)return;
+ const out=$('fv-friend-search-result');out.textContent='SEARCHING…';
+ try{
+   const r=await api('fv_profiles?select=id,username&username=eq.'+encodeURIComponent(q)+'&limit=1');
+   const a=await r.json(),p=a[0];
+   if(!p){out.textContent='NO PLAYER FOUND';return}
+   if(p.id===uid()){out.textContent='THAT IS YOU 😅';return}
+   const add=await api('fv_friends',{
+     method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({requester:uid(),addressee:p.id,status:'pending'})
+   });
+   out.textContent='📨 FRIEND REQUEST SENT TO '+p.username.toUpperCase();
+   refreshFriends();
+ }catch(e){out.textContent='⚠️ '+e.message}
+}
+async function acceptFriend(id){
+ try{
+   await api('fv_friends?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({status:'accepted'})});
+   refreshFriends();
+ }catch(e){alert(e.message)}
+}
+async function removeFriend(id){
+ if(!confirm('REMOVE THIS FRIEND?'))return;
+ try{await api('fv_friends?id=eq.'+encodeURIComponent(id),{method:'DELETE'});refreshFriends()}catch(e){alert(e.message)}
+}
+async function challenge(friendId,name){
+ try{
+   const target=Math.max(1,Number(localStorage.getItem('flappyHighScore')||0));
+   await api('fv_challenges',{
+     method:'POST',headers:{'Prefer':'return=minimal'},
+     body:JSON.stringify({sender:uid(),receiver:friendId,target_score:target,status:'pending'})
+   });
+   alert('⚔️ CHALLENGE SENT TO '+String(name).toUpperCase()+' — BEAT '+target+'!');
+   refreshChallenges();
+ }catch(e){alert(e.message)}
+}
+async function acceptChallenge(id){
+ try{await api('fv_challenges?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({status:'accepted'})});refreshChallenges()}catch(e){alert(e.message)}
+}
+async function refreshFriends(){
+ const reqBox=$('fv-friend-requests'),list=$('fv-friends-list'),board=$('fv-friend-leaderboard');
+ if(!uid()){reqBox.innerHTML=list.innerHTML=board.innerHTML='<div class="fv-empty">🔐 LOGIN TO USE FRIENDS</div>';return}
+ try{
+   const r=await api('fv_friends?select=id,requester,addressee,status,created_at&or=(requester.eq.'+uid()+',addressee.eq.'+uid()+')&order=created_at.desc');
+   const rows=await r.json();
+   const incoming=rows.filter(x=>x.status==='pending'&&x.addressee===uid());
+   const accepted=rows.filter(x=>x.status==='accepted');
+   const ids=[...new Set(rows.map(x=>x.requester===uid()?x.addressee:x.requester).concat(incoming.map(x=>x.requester)))];
+   const ps=await profiles(ids),pm=Object.fromEntries(ps.map(x=>[x.id,x]));
+   reqBox.innerHTML=incoming.length?'':'<div class="fv-empty">NO PENDING REQUESTS</div>';
+   incoming.forEach(x=>{
+     const p=pm[x.requester]||{username:'PLAYER'};
+     const d=document.createElement('div');d.className='fv-friend-row';
+     d.innerHTML='<div class="grow"><b>'+p.username.toUpperCase()+'</b><div class="fv-mini">WANTS TO BE FRIENDS</div></div><button class="fv-ph-btn green">ACCEPT</button>';
+     d.querySelector('button').onclick=()=>acceptFriend(x.id);reqBox.appendChild(d);
+   });
+   friendsCache=accepted.map(x=>{
+     const fid=x.requester===uid()?x.addressee:x.requester;
+     return {rowId:x.id,id:fid,username:(pm[fid]&&pm[fid].username)||'player'};
+   });
+   list.innerHTML=friendsCache.length?'':'<div class="fv-empty">ADD FRIENDS TO SEE THEM HERE</div>';
+   friendsCache.forEach(f=>{
+     const d=document.createElement('div');d.className='fv-friend-row';
+     d.innerHTML='<div class="grow"><b>👤 '+f.username.toUpperCase()+'</b></div><button class="fv-ph-btn gold ch">⚔️ CHALLENGE</button><button class="fv-ph-btn red rm">REMOVE</button>';
+     d.querySelector('.ch').onclick=()=>challenge(f.id,f.username);d.querySelector('.rm').onclick=()=>removeFriend(f.rowId);list.appendChild(d);
+   });
+   const allIds=[uid()].concat(friendsCache.map(x=>x.id)),ss=await states(allIds),sm=Object.fromEntries(ss.map(x=>[x.user_id,x]));
+   const people=[{id:uid(),username:username()}].concat(friendsCache).map(x=>Object.assign({},x,sm[x.id]||{best_score:0}));
+   people.sort((a,b)=>Number(b.best_score||0)-Number(a.best_score||0));
+   board.innerHTML='';
+   people.forEach((p,i)=>{
+     const d=document.createElement('div');d.className='fv-friend-row';
+     d.innerHTML='<b style="width:32px">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</b><div class="grow"><b>'+String(p.username).toUpperCase()+(p.id===uid()?' (YOU)':'')+'</b><div class="fv-mini">'+String(p.favorite_world||'—').toUpperCase()+'</div></div><div class="fv-score">'+fmt(p.best_score)+'</div>';
+     board.appendChild(d);
+   });
+ }catch(e){
+   reqBox.innerHTML=list.innerHTML=board.innerHTML='<div class="fv-empty">⚠️ '+e.message+'</div>';
+ }
+}
+async function refreshChallenges(){
+ const box=$('fv-challenges-list');
+ if(!uid()){box.innerHTML='<div class="fv-empty">🔐 LOGIN TO SEE CHALLENGES</div>';return}
+ try{
+   const r=await api('fv_challenges?select=id,sender,receiver,target_score,status,created_at&or=(sender.eq.'+uid()+',receiver.eq.'+uid()+')&order=created_at.desc&limit=30');
+   const rows=await r.json(),ids=[...new Set(rows.flatMap(x=>[x.sender,x.receiver]).filter(x=>x!==uid()))];
+   const ps=await profiles(ids),pm=Object.fromEntries(ps.map(x=>[x.id,x]));
+   box.innerHTML=rows.length?'':'<div class="fv-empty">NO CHALLENGES YET</div>';
+   rows.forEach(x=>{
+     const incoming=x.receiver===uid(),other=incoming?x.sender:x.receiver,p=pm[other]||{username:'PLAYER'};
+     const d=document.createElement('div');d.className='fv-challenge-row';
+     d.innerHTML='<div class="grow"><b>⚔️ '+p.username.toUpperCase()+'</b><div class="fv-mini">'+(incoming?'CHALLENGED YOU':'YOU CHALLENGED THEM')+' • TARGET '+fmt(x.target_score)+' • '+x.status.toUpperCase()+'</div></div>';
+     if(incoming&&x.status==='pending'){const b=document.createElement('button');b.className='fv-ph-btn green';b.textContent='ACCEPT';b.onclick=()=>acceptChallenge(x.id);d.appendChild(b)}
+     box.appendChild(d);
+   });
+ }catch(e){box.innerHTML='<div class="fv-empty">⚠️ '+e.message+'</div>'}
+}
+async function refreshHall(){
+ const box=$('fv-hof-list');box.innerHTML='<div class="fv-empty">LOADING CHAMPIONS…</div>';
+ try{
+   const r=await fetch(SB+'/rest/v1/fv_hall_of_fame?select=event_key,event_name,winner_username,winning_score,badge,won_at&order=won_at.desc',{headers:authHeaders(null)});
+   if(!r.ok)throw new Error('RUN THE INCLUDED SUPABASE ONLINE SETUP SQL');
+   const rows=await r.json();box.innerHTML=rows.length?'':'<div class="fv-empty">🏆 THE FIRST CHAMPION WILL APPEAR AFTER THE CURRENT GLOBAL EVENT.</div>';
+   rows.forEach((x,i)=>{
+     const d=document.createElement('div');d.className='fv-hof-row';
+     d.innerHTML='<div class="fv-hof-medal">'+(x.badge||'🏆')+'</div><div class="grow"><div class="fv-hof-event">'+x.event_name+'</div><b>'+String(x.winner_username||'PLAYER').toUpperCase()+'</b><div class="fv-mini">'+new Date(x.won_at).toLocaleDateString()+'</div></div><div class="fv-score">'+fmt(x.winning_score)+'</div>';
+     box.appendChild(d);
+   });
+ }catch(e){box.innerHTML='<div class="fv-empty">⚠️ '+e.message+'</div>'}
+}
+async function claimHallOfFame(){
+ if(!uid())return;
+ try{
+   const r=await authFetch('/rest/v1/rpc/fv_claim_golden_pass_event',{method:'POST',body:'{}'});
+   if(r.ok){const d=await r.json();if(d&&d.won){localStorage.setItem('fvGoldenPassV1','1');refreshHall();syncNow()}}
+ }catch(e){}
+}
+function setTab(t){
+ tab=t;document.querySelectorAll('.fv-ph-tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+ document.querySelectorAll('.fv-ph-panel').forEach(p=>p.classList.remove('on'));
+ $('fv-ph-'+t).classList.add('on');
+ if(t==='profile')refreshProfile();
+ if(t==='friends'){refreshFriends();refreshChallenges()}
+ if(t==='hof')refreshHall();
+}
+function open(){
+ const m=$('main-menu');if(m)m.style.display='none';
+ $('fv-player-hub-screen').classList.add('on');refreshAll();setTab(tab);
+}
+function close(){
+ $('fv-player-hub-screen').classList.remove('on');
+ const m=$('main-menu');if(m){m.style.display='flex';m.scrollTop=0}
+}
+function refreshAll(){refreshAccountUI();refreshProfile();if(tab==='friends'){refreshFriends();refreshChallenges()}}
+function trackCoins(){
+ if(window.flapverseEarnCoins&&!window.__fvOnlineCoinsHook){
+   const old=window.flapverseEarnCoins;
+   window.flapverseEarnCoins=function(n){
+     const v=Math.max(0,Math.floor(Number(n)||0));
+     if(v)localStorage.setItem('fvLifetimeCoinsEarned',String((Number(localStorage.getItem('fvLifetimeCoinsEarned'))||0)+v));
+     return old.apply(this,arguments);
+   };
+   window.__fvOnlineCoinsHook=true;return true;
+ }
+ return false;
+}
+function trackWorld(){
+ if(window.startGame&&!window.__fvOnlineWorldHook){
+   const old=window.startGame;
+   window.startGame=function(){
+     try{
+       const w=localStorage.getItem('flappySelectedWorld')||localStorage.getItem('flapverse_world')||'Green Valley';
+       const o=worldCounts();o[w]=(Number(o[w])||0)+1;localStorage.setItem('fvWorldPlayCounts',JSON.stringify(o));
+     }catch(e){}
+     return old.apply(this,arguments);
+   };
+   window.__fvOnlineWorldHook=true;return true;
+ }
+ return false;
+}
+function installButton(){
+ const m=$('main-menu');if(!m||$('fv-player-hub-button'))return;
+ const b=document.createElement('button');b.id='fv-player-hub-button';b.className='menu-button';b.textContent='👤 PLAYER HUB';
+ const vault=$('fv-vault-button'),event=$('fv-event-button'),lb=$('fv-leaderboard-button');
+ if(vault)vault.insertAdjacentElement('afterend',b);else if(event)event.insertAdjacentElement('afterend',b);else if(lb)lb.insertAdjacentElement('afterend',b);else m.appendChild(b);
+ b.onclick=open;
+}
+async function init(){
+ loadSession();installButton();refreshAccountUI();
+ $('fv-ph-close').onclick=close;
+ document.querySelectorAll('.fv-ph-tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+ $('fv-account-login').onclick=()=>login(false);$('fv-account-create').onclick=()=>login(true);
+ $('fv-account-logout').onclick=logout;$('fv-account-sync').onclick=syncNow;$('fv-friend-add').onclick=addFriend;
+ $('fv-account-pass').addEventListener('keydown',e=>{if(e.key==='Enter')login(false)});
+ let tries=0,t=setInterval(()=>{tries++;trackCoins();trackWorld();installButton();if(tries>40)clearInterval(t)},150);
+ if(sess){
+   const ok=await verifySession();
+   if(ok){
+     if(!sess.username)await loadUsernameForSession();
+     if(sess.username){
+       localStorage.setItem('flapverse_player_name_v1',sess.username);
+       localStorage.setItem('flapverse_player_id_v1',uid());
+       try{await ensureProfile();await pullState();await syncNow()}catch(e){status('⚠️ '+e.message,true)}
+     }
+   }else{saveSession(null)}
+ }
+ setInterval(()=>{if(uid())pushState().catch(()=>{})},30000);
+ setInterval(()=>{if(uid())claimHallOfFame()},120000);
+ setTimeout(claimHallOfFame,5000);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+
+window.fvOnlinePlayer={open,syncNow,refreshProfile,refreshFriends,refreshHall,loggedIn:()=>!!uid()};
+})();
+</script>
+
+
+<script id="fv-normal-shop-retired-js">
+(function(){
+function retire(){
+ const b=document.getElementById('shop-button');
+ if(b){b.style.display='none';b.setAttribute('aria-hidden','true');b.tabIndex=-1}
+ const s=document.getElementById('shop-screen');
+ if(s){s.style.display='none';s.setAttribute('aria-hidden','true')}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',retire);else retire();
 })();
 </script>
 
