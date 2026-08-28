@@ -3829,7 +3829,7 @@ function drawMegaShopCosmeticsDirect(){
     }
 
     /* ACCESSORIES */
-    if(E.accessories){
+    if(E.accessories && E.accessories!=="FLAPVERSE SUPREME CROWN"){
         ctx.textAlign="center";ctx.textBaseline="middle";
         const map={"Royal Crown":"👑","Sunglasses":"😎","Headphones":"🎧","Helmet":"🪖","Pirate Hat":"🏴‍☠️","Wizard Hat":"🧙","Halo":"😇",
                    "Void Crown":"👑","Solar Crown":"☀️","FLAPVERSE SUPREME CROWN":"👑"};
@@ -3843,101 +3843,25 @@ function drawMegaShopCosmeticsDirect(){
         }
     }
     /* GOLDEN PASS EXCLUSIVE — FLAPVERSE SUPREME CROWN
-       The rarest accessory in the game: crown + orbiting gems + royal wings + halo + sparks.
+       A real accessory now: small crown only. No forced wings, aura or orbit rings.
     */
-    if(localStorage.getItem("fvGoldenPassV1")==="1"){
+    if(E.accessories==="FLAPVERSE SUPREME CROWN" && localStorage.getItem("fvGoldenPassV1")==="1"){
         const now=Date.now();
-        const pulse=1+Math.sin(now/120)*0.08;
-        const spin=now/650;
-
+        const pulse=1+Math.sin(now/150)*0.035;
         ctx.save();
-
-        // Massive royal aura behind the bird
-        const aura=ctx.createRadialGradient(x,y,8,x,y,64);
-        aura.addColorStop(0,"rgba(255,245,150,.32)");
-        aura.addColorStop(.45,"rgba(255,201,45,.18)");
-        aura.addColorStop(1,"rgba(255,185,0,0)");
-        ctx.fillStyle=aura;
-        ctx.beginPath();ctx.arc(x,y,64*pulse,0,Math.PI*2);ctx.fill();
-
-        // Animated golden royal wings
-        ctx.globalAlpha=.82;
-        ctx.fillStyle="#ffd63d";
-        ctx.strokeStyle="#fff2a0";
-        ctx.lineWidth=2.2;
-
-        ctx.beginPath();
-        ctx.moveTo(x-12,y-2);
-        ctx.quadraticCurveTo(x-55,y-34,x-67,y+3);
-        ctx.quadraticCurveTo(x-47,y-5,x-31,y+21);
-        ctx.quadraticCurveTo(x-23,y+8,x-12,y-2);
-        ctx.closePath();ctx.fill();ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(x+12,y-2);
-        ctx.quadraticCurveTo(x+55,y-34,x+67,y+3);
-        ctx.quadraticCurveTo(x+47,y-5,x+31,y+21);
-        ctx.quadraticCurveTo(x+23,y+8,x+12,y-2);
-        ctx.closePath();ctx.fill();ctx.stroke();
-
-        // Double orbit rings around the bird
-        ctx.globalAlpha=.8;
-        ctx.strokeStyle="#ffe76a";
-        ctx.lineWidth=2.3;
-        ctx.beginPath();
-        ctx.ellipse(x,y,43*pulse,18*pulse,spin*.18,0,Math.PI*2);
-        ctx.stroke();
-        ctx.globalAlpha=.45;
-        ctx.strokeStyle="#fff7bf";
-        ctx.beginPath();
-        ctx.ellipse(x,y,53*pulse,24*pulse,-spin*.13,0,Math.PI*2);
-        ctx.stroke();
-
-        // Orbiting legendary gems
-        ctx.globalAlpha=1;
-        const gems=["💎","✨","🔶","✨"];
-        for(let i=0;i<4;i++){
-            const a=spin+(Math.PI*2*i/4);
-            const gx=x+Math.cos(a)*48;
-            const gy=y+Math.sin(a)*20;
-            ctx.font=(i%2===0?"15px":"13px")+" Arial";
-            ctx.textAlign="center";ctx.textBaseline="middle";
-            ctx.shadowColor="#fff1a0";ctx.shadowBlur=10;
-            ctx.fillText(gems[i],gx,gy);
-        }
-
-        // Supreme crown above bird — compact Golden Pass crown
-        ctx.save();
-        ctx.translate(x,y-29);
+        ctx.translate(x,y-27);
         ctx.scale(pulse,pulse);
-        ctx.textAlign="center";ctx.textBaseline="middle";
-        ctx.font="22px Arial";
+        ctx.textAlign="center";
+        ctx.textBaseline="middle";
+        ctx.font="19px Arial";
         ctx.shadowColor="#ffd83d";
-        ctx.shadowBlur=12+Math.sin(now/85)*4;
+        ctx.shadowBlur=7;
         ctx.fillText("👑",0,0);
-
-        // Small floating crown diamonds
-        ctx.font="9px Arial";
-        ctx.fillText("💎",-18,-5);
-        ctx.fillText("💎",18,-5);
-        ctx.fillText("✨",-26,5);
-        ctx.fillText("✨",26,5);
-        ctx.restore();
-
-        // Star particles constantly orbiting the bird
         ctx.shadowBlur=0;
-        for(let i=0;i<8;i++){
-            const a=(now/430)+(i*Math.PI/4);
-            const rr=30+(i%3)*9;
-            const sx=x+Math.cos(a)*rr;
-            const sy=y+Math.sin(a)*rr*.55;
-            ctx.globalAlpha=.45+.45*Math.sin(now/160+i);
-            ctx.fillStyle=i%2===0?"#fff3a6":"#ffd22d";
-            ctx.beginPath();
-            ctx.arc(sx,sy,1.7+(i%3),0,Math.PI*2);
-            ctx.fill();
-        }
-
+        ctx.globalAlpha=.8;
+        ctx.font="7px Arial";
+        ctx.fillText("✨",-15,-2);
+        ctx.fillText("✨",15,-2);
         ctx.restore();
     }
 
@@ -8091,22 +8015,38 @@ window.fvGoldenPass={open,update,hasPass,unlockEverything};
 
 <script id="fv-supreme-crown-megashop-card">
 (function(){
-function addSupreme(){
+const NAME='FLAPVERSE SUPREME CROWN', EQ='fvMegaEquipped';
+function getEq(){try{return JSON.parse(localStorage.getItem(EQ)||'{}')}catch(e){return{}}}
+function saveEq(e){localStorage.setItem(EQ,JSON.stringify(e))}
+function renderSupreme(){
  const shop=document.getElementById('megaShop');
- if(!shop||document.getElementById('fv-supreme-crown-card'))return;
+ if(!shop)return;
  const grid=shop.querySelector('.mGrid');
  if(!grid)return;
- const card=document.createElement('div');
- card.id='fv-supreme-crown-card';card.className='mCard';
- card.style.cssText='border:3px solid #ffe36a;box-shadow:0 0 25px #ffd83d88;background:linear-gradient(145deg,#5a3600,#1a1000)';
+ let card=document.getElementById('fv-supreme-crown-card');
+ if(!card){
+   card=document.createElement('div');
+   card.id='fv-supreme-crown-card';card.className='mCard';
+   card.style.cssText='border:3px solid #ffe36a;box-shadow:0 0 25px #ffd83d88;background:linear-gradient(145deg,#5a3600,#1a1000)';
+   grid.prepend(card);
+ }
  const won=localStorage.getItem('fvGoldenPassV1')==='1';
- card.innerHTML='<div class=mRare>GOLDEN PASS ONLY</div><div class=mIcon style="font-size:55px;animation:fvPass 1s ease-in-out infinite alternate">👑</div><div class=mName>FLAPVERSE SUPREME CROWN</div><div style="font-size:10px;opacity:.8">Animated wings • orbiting gems • golden halo • royal energy</div><div class=mPrice>'+(won?'✅ UNLOCKED':'🔒 EVENT REWARD')+'</div><button class=mBuy disabled>'+(won?'👑 AUTO EQUIPPED':'WIN THE GOLDEN PASS EVENT')+'</button>';
- grid.prepend(card);
+ const E=getEq(),on=E.accessories===NAME;
+ card.innerHTML='<div class=mRare>GOLDEN PASS ONLY</div><div class=mIcon style="font-size:42px">👑</div><div class=mName>'+NAME+'</div><div style="font-size:10px;opacity:.8">Small Supreme Crown • no forced wings • no forced aura</div><div class=mPrice>'+(won?'✅ UNLOCKED':'🔒 EVENT REWARD')+'</div><button id="fv-supreme-crown-equip" class=mBuy '+(won?'':'disabled')+'>'+(won?(on?'⏏ UNEQUIP':'👑 EQUIP'):'WIN THE GOLDEN PASS EVENT')+'</button>';
+ const b=document.getElementById('fv-supreme-crown-equip');
+ if(b&&won)b.onclick=()=>{
+   const q=getEq();
+   if(q.accessories===NAME)delete q.accessories;
+   else q.accessories=NAME;
+   saveEq(q);
+   renderSupreme();
+   if(window.fvVault&&window.fvVault.render)window.fvVault.render();
+ };
 }
 document.addEventListener('click',e=>{
- if(e.target&&e.target.id==='fv-mega-shop-button')setTimeout(addSupreme,120);
+ if(e.target&&e.target.id==='fv-mega-shop-button')setTimeout(renderSupreme,120);
 });
-setTimeout(addSupreme,1800);
+setTimeout(renderSupreme,1800);
 })();
 </script>
 
@@ -8157,7 +8097,8 @@ function toast(s){
  clearTimeout(window.__fvVaultToast);window.__fvVaultToast=setTimeout(()=>t.style.display='none',1700);
 }
 function normalize(category,name){
- // Limited + Prestige items become real wearable slots.
+ // Limited + Prestige + Golden Pass Crown become real wearable slots.
+ if(name==='FLAPVERSE SUPREME CROWN')return ['accessories',name];
  if(name==='Solar Crown'||name==='Void Crown')return ['accessories',name];
  if(name==='Glitch Wings'||name==='Cosmic Wings')return ['wings',name];
  if(name==='Meteor Aura'||name==='Developer Aura')return ['auras',name];
@@ -8186,13 +8127,12 @@ function items(){
  return a.filter(x=>{const k=x.category+'::'+x.name;if(seen.has(k))return false;seen.add(k);return true});
 }
 function isEquipped(item){
- if(item.name==='FLAPVERSE SUPREME CROWN')return localStorage.getItem('fvGoldenPassV1')==='1';
  const E=eq(),[slot,name]=normalize(item.category,item.name);
  return E[slot]===name;
 }
 function equip(item){
- if(item.name==='FLAPVERSE SUPREME CROWN'){
-   toast('👑 SUPREME CROWN IS ALWAYS ACTIVE WITH GOLDEN PASS');
+ if(item.name==='FLAPVERSE SUPREME CROWN' && localStorage.getItem('fvGoldenPassV1')!=='1'){
+   toast('🔒 WIN THE GOLDEN PASS TO USE THE SUPREME CROWN');
    return;
  }
  const E=eq(),[slot,name]=normalize(item.category,item.name);
@@ -8211,10 +8151,6 @@ function equip(item){
  render();
 }
 function unequip(item){
- if(item.name==='FLAPVERSE SUPREME CROWN'){
-   toast('👑 GOLDEN PASS REWARD CANNOT BE REMOVED');
-   return;
- }
  const E=eq(),[slot,name]=normalize(item.category,item.name);
  if(E[slot]===name)delete E[slot];
  saveEq(E);
@@ -8225,6 +8161,7 @@ function unequip(item){
  render();
 }
 function labelFor(item){
+ if(item.name==='FLAPVERSE SUPREME CROWN')return 'GOLDEN PASS ACCESSORY';
  const [slot]=normalize(item.category,item.name);
  const names={
    accessories:'ACCESSORY',wings:'WING EFFECT',auras:'AURA',death:'DEATH EFFECT',
@@ -8248,12 +8185,11 @@ function render(){
  shown.forEach(item=>{
    const on=isEquipped(item),d=document.createElement('div');
    d.className='fv-vault-card'+(on?' equipped':'');
-   const permanent=item.name==='FLAPVERSE SUPREME CROWN';
    d.innerHTML=`<div class="fv-vault-icon">${ICON[item.name]||'✨'}</div>
      <div class="fv-vault-name">${item.name}</div>
      <div class="fv-vault-type">${labelFor(item)}</div>
-     <button class="fv-vault-action ${on?'un':'eq'}">${permanent?'👑 ALWAYS ACTIVE':on?'⏏ UNEQUIP':'✨ EQUIP / WEAR'}</button>`;
-   d.querySelector('button').onclick=()=>permanent?toast('👑 SUPREME CROWN IS ALWAYS ACTIVE'):on?unequip(item):equip(item);
+     <button class="fv-vault-action ${on?'un':'eq'}">${on?'⏏ UNEQUIP':'✨ EQUIP / WEAR'}</button>`;
+   d.querySelector('button').onclick=()=>on?unequip(item):equip(item);
    grid.appendChild(d);
  });
 }
