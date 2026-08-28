@@ -8032,12 +8032,19 @@ function renderSupreme(){
  }
  const won=localStorage.getItem('fvGoldenPassV1')==='1';
  const E=getEq(),on=E.accessories===NAME;
- card.innerHTML='<div class=mRare>GOLDEN PASS ONLY</div><div class=mIcon style="font-size:42px">👑</div><div class=mName>'+NAME+'</div><div style="font-size:10px;opacity:.8">Small Supreme Crown • no forced wings • no forced aura</div><div class=mPrice>'+(won?'✅ UNLOCKED':'🔒 EVENT REWARD')+'</div><button id="fv-supreme-crown-equip" class=mBuy '+(won?'':'disabled')+'>'+(won?(on?'⏏ UNEQUIP':'👑 EQUIP'):'WIN THE GOLDEN PASS EVENT')+'</button>';
+ card.innerHTML='<div class=mRare>GOLDEN PASS ONLY</div><div class=mIcon style="font-size:42px">👑</div><div class=mName>'+NAME+'</div><div style="font-size:10px;opacity:.8">Small Supreme Crown • no forced wings • no forced aura</div><div class=mPrice>'+(won?'✅ UNLOCKED':'🔒 EVENT REWARD')+'</div><button id="fv-supreme-crown-equip" class=mBuy '+((won&&!on)?'':'disabled')+'>'+(won?(on?'👑 CROWN EQUIPPED':'👑 EQUIP SUPREME CROWN'):'WIN THE GOLDEN PASS EVENT')+'</button><button id="fv-supreme-crown-unequip" class=mBuy '+((won&&on)?'':'disabled')+' style="margin-top:7px">⏏ UNEQUIP SUPREME CROWN</button>';
  const b=document.getElementById('fv-supreme-crown-equip');
- if(b&&won)b.onclick=()=>{
+ const u=document.getElementById('fv-supreme-crown-unequip');
+ if(b&&won&&!on)b.onclick=()=>{
+   const q=getEq();
+   q.accessories=NAME;
+   saveEq(q);
+   renderSupreme();
+   if(window.fvVault&&window.fvVault.render)window.fvVault.render();
+ };
+ if(u&&won&&on)u.onclick=()=>{
    const q=getEq();
    if(q.accessories===NAME)delete q.accessories;
-   else q.accessories=NAME;
    saveEq(q);
    renderSupreme();
    if(window.fvVault&&window.fvVault.render)window.fvVault.render();
@@ -8157,7 +8164,7 @@ function unequip(item){
  if(slot==='pipes')localStorage.removeItem('flapverse_equipped_pipe');
  if(slot==='titles')localStorage.removeItem('fvEquippedPlayerTitle');
  if(slot==='frames')localStorage.removeItem('fvEquippedProfileFrame');
- toast('⏏ '+name+' UNEQUIPPED');
+ toast(name==='FLAPVERSE SUPREME CROWN'?'⏏ SUPREME CROWN UNEQUIPPED':'⏏ '+name+' UNEQUIPPED');
  render();
 }
 function labelFor(item){
