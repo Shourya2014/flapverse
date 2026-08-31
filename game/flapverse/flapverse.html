@@ -1400,6 +1400,43 @@ body.fv-theme-doraemon #fv-theme-animation-layer:after{content:"🔔";position:a
  <div class="fv-load-tip">Preparing worlds • characters • shop • leaderboard</div>
 </div>
 
+<script id="fv-startup-loader-early-failsafe">
+(function(){
+  const loader=document.getElementById('fvStartupLoader');
+  const bar=document.getElementById('fvLoadBar');
+  const pct=document.getElementById('fvLoadPercent');
+  if(!loader)return;
+  let p=8, finished=false;
+  function paint(v){
+    p=Math.max(p,Math.min(99,v));
+    if(bar)bar.style.width=p+'%';
+    if(pct)pct.textContent=Math.round(p)+'%';
+  }
+  const ticker=setInterval(()=>{
+    if(finished)return;
+    if(p<88)paint(p+Math.max(2,(88-p)*0.11));
+  },140);
+  function finish(){
+    if(finished)return;
+    finished=true;
+    clearInterval(ticker);
+    if(bar)bar.style.width='100%';
+    if(pct)pct.textContent='100%';
+    document.documentElement.classList.remove('fv-starting');
+    setTimeout(()=>{
+      loader.classList.add('fv-loaded');
+      setTimeout(()=>loader.remove(),520);
+    },180);
+  }
+  if(document.readyState==='interactive'||document.readyState==='complete')
+    setTimeout(finish,450);
+  else
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(finish,450),{once:true});
+  // Absolute failsafe: the loader can never trap the player.
+  setTimeout(finish,6500);
+})();
+</script>
+
 <div id="fvCosmeticOverlayLabel"></div>
 
 <div id="fvEggHatchScreen">
